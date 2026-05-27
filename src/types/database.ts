@@ -28,6 +28,7 @@ export type Database = {
           content_rating?: ContentRating;
           updated_at?: string;
         };
+        Relationships: [];
       };
       chats: {
         Row: {
@@ -48,6 +49,7 @@ export type Database = {
           title?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       messages: {
         Row: {
@@ -69,6 +71,7 @@ export type Database = {
         Update: {
           content?: string;
         };
+        Relationships: [];
       };
       login_passcodes: {
         Row: {
@@ -91,7 +94,12 @@ export type Database = {
           status?: PasscodeStatus;
           approved_by?: string | null;
         };
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 };
