@@ -53,7 +53,7 @@ export default async function ChatPage() {
           <div className="flex h-full items-center justify-center text-center text-slate-400">
             <div>
               <p className="text-2xl font-black text-white">Start the conversation</p>
-              <p className="mt-2 max-w-md">Messages are saved in Supabase now. The assistant reply is intentionally fake until the AI backend is added.</p>
+              <p className="mt-2 max-w-md">The assistant reply is intentionally fake until the AI backend is added.</p>
             </div>
           </div>
         ) : (
