@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Zeus placeholder portrait</title>
+  <desc id="desc">A replaceable circular placeholder for Zeus.</desc>
+  <rect width="240" height="240" fill="#f4efe7"/>
+  <circle cx="120" cy="120" r="104" fill="#fff7ee" stroke="#9d4f2f" stroke-width="8"/>
+  <path d="M130 36 84 126h36l-14 78 52-102h-38l10-66z" fill="#7d3f25"/>
+  <text x="120" y="187" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#241c15">Zeus</text>
+</svg>

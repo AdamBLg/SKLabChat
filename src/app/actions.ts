@@ -91,16 +91,22 @@ export async function sendMessage(formData: FormData) {
   revalidatePath("/app/chat");
 }
 
-export async function clearChat() {
+export async function clearChat(characterId?: string) {
   const supabase = await createClient();
   const { data: { user }, error: userError } = await supabase.auth.getUser();
 
   if (userError || !user) redirect("/login");
 
-  const { data: chat } = await supabase
+  let query = supabase
     .from("chats")
     .select("id")
-    .eq("user_id", user.id)
+    .eq("user_id", user.id);
+
+  if (characterId) {
+    query = query.eq("character_id", characterId);
+  }
+
+  const { data: chat } = await query
     .order("updated_at", { ascending: false })
     .limit(1)
     .maybeSingle();

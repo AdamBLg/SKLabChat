@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Oedipus placeholder portrait</title>
+  <desc id="desc">A replaceable circular placeholder for Oedipus.</desc>
+  <rect width="240" height="240" fill="#f4efe7"/>
+  <circle cx="120" cy="120" r="104" fill="#fff7ee" stroke="#9d4f2f" stroke-width="8"/>
+  <path d="M78 86c18-28 66-28 84 0M80 138h80M92 116h56" fill="none" stroke="#7d3f25" stroke-width="10" stroke-linecap="round"/>
+  <text x="120" y="187" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#241c15">Oedipus</text>
+</svg>

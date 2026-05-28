@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Odysseus placeholder portrait</title>
+  <desc id="desc">A replaceable circular placeholder for Odysseus.</desc>
+  <rect width="240" height="240" fill="#f4efe7"/>
+  <circle cx="120" cy="120" r="104" fill="#fff7ee" stroke="#9d4f2f" stroke-width="8"/>
+  <path d="M62 154c22-42 94-42 116 0" fill="none" stroke="#7d3f25" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="120" cy="94" r="36" fill="#9d4f2f"/>
+  <text x="120" y="187" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#241c15">Odysseus</text>
+</svg>

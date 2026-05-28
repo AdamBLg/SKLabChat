@@ -11,6 +11,9 @@ create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   display_name text,
   avatar_url text,
+  phone text,
+  city text,
+  country text,
   content_rating public.content_rating not null default 'pg13',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -20,6 +23,7 @@ create table public.chats (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
   title text not null default 'New chat',
+  character_id text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -92,6 +96,16 @@ create policy "Users can create messages in own chats"
   with check (
     auth.uid() = user_id
     and exists (
+      select 1 from public.chats
+      where chats.id = messages.chat_id
+        and chats.user_id = auth.uid()
+    )
+  );
+
+create policy "Users can delete messages in own chats"
+  on public.messages for delete
+  using (
+    exists (
       select 1 from public.chats
       where chats.id = messages.chat_id
         and chats.user_id = auth.uid()

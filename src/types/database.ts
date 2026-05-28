@@ -44,6 +44,7 @@ export type Database = {
           id: string;
           user_id: string;
           title: string;
+          character_id: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -51,11 +52,13 @@ export type Database = {
           id?: string;
           user_id: string;
           title?: string;
+          character_id?: string | null;
           created_at?: string;
           updated_at?: string;
         };
         Update: {
           title?: string;
+          character_id?: string | null;
           updated_at?: string;
         };
         Relationships: [];
