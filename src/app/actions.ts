@@ -19,7 +19,7 @@ export async function saveSettings(_prevState: { success: boolean; message: stri
 
   const contentRating: ContentRating = formData.get("adultMode") === "on" ? "adult" : "pg13";
   const displayName = String(formData.get("displayName") ?? "").trim() || null;
-  const avatarUrl = String(formData.get("avatarUrl") ?? "").trim() || user.user_metadata?.avatar_url ?? null;
+  const avatarUrl = String(formData.get("avatarUrl") ?? "").trim() || (user.user_metadata?.avatar_url ?? null);
   const phone = String(formData.get("phone") ?? "").trim() || null;
   const city = String(formData.get("city") ?? "").trim() || null;
   const country = String(formData.get("country") ?? "").trim() || null;
