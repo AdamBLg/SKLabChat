@@ -6,10 +6,14 @@ import { CheckCircle, AlertCircle } from "lucide-react";
 
 interface Props {
   defaultDisplayName: string;
+  defaultAvatarUrl: string;
+  defaultPhone: string;
+  defaultCity: string;
+  defaultCountry: string;
   defaultAdultMode: boolean;
 }
 
-export function SettingsForm({ defaultDisplayName, defaultAdultMode }: Props) {
+export function SettingsForm({ defaultDisplayName, defaultAvatarUrl, defaultPhone, defaultCity, defaultCountry, defaultAdultMode }: Props) {
   const [state, formAction, isPending] = useActionState(saveSettings, null);
   const [showBanner, setShowBanner] = useState(false);
 
@@ -47,6 +51,50 @@ export function SettingsForm({ defaultDisplayName, defaultAdultMode }: Props) {
           placeholder="Adam"
         />
       </label>
+
+      <label className="flex flex-col gap-2">
+        <span className="text-sm font-bold text-slate-200">Profile picture URL</span>
+        <input
+          name="avatarUrl"
+          defaultValue={defaultAvatarUrl}
+          className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none ring-brand-500 focus:ring-2"
+          placeholder="https://example.com/photo.jpg"
+        />
+        <span className="text-xs text-slate-500">Paste a link to your profile image</span>
+      </label>
+
+      <label className="flex flex-col gap-2">
+        <span className="text-sm font-bold text-slate-200">Phone number</span>
+        <input
+          name="phone"
+          type="tel"
+          defaultValue={defaultPhone}
+          className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none ring-brand-500 focus:ring-2"
+          placeholder="+1 555-123-4567"
+        />
+      </label>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-bold text-slate-200">City</span>
+          <input
+            name="city"
+            defaultValue={defaultCity}
+            className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none ring-brand-500 focus:ring-2"
+            placeholder="San Francisco"
+          />
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-bold text-slate-200">Country</span>
+          <input
+            name="country"
+            defaultValue={defaultCountry}
+            className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none ring-brand-500 focus:ring-2"
+            placeholder="United States"
+          />
+        </label>
+      </div>
 
       <label className="flex items-start gap-4 rounded-2xl border border-white/10 bg-black/20 p-4">
         <input
