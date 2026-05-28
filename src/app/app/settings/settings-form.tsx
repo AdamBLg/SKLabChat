@@ -53,17 +53,6 @@ export function SettingsForm({ defaultDisplayName, defaultAvatarUrl, defaultPhon
       </label>
 
       <label className="flex flex-col gap-2">
-        <span className="text-sm font-bold text-slate-200">Profile picture URL</span>
-        <input
-          name="avatarUrl"
-          defaultValue={defaultAvatarUrl}
-          className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none ring-brand-500 focus:ring-2"
-          placeholder="https://example.com/photo.jpg"
-        />
-        <span className="text-xs text-slate-500">Paste a link to your profile image</span>
-      </label>
-
-      <label className="flex flex-col gap-2">
         <span className="text-sm font-bold text-slate-200">Phone number</span>
         <input
           name="phone"
@@ -109,6 +98,17 @@ export function SettingsForm({ defaultDisplayName, defaultAvatarUrl, defaultPhon
             Off means PG-13. On stores an adult-mode preference for later AI routing and changes the current fake reply.
           </span>
         </span>
+      </label>
+
+      <label className="flex flex-col gap-2">
+        <span className="text-sm font-bold text-slate-200">Profile picture URL</span>
+        <input
+          name="avatarUrl"
+          defaultValue={defaultAvatarUrl}
+          className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none ring-brand-500 focus:ring-2"
+          placeholder="https://example.com/photo.jpg"
+        />
+        <span className="text-xs text-slate-500">Paste a link to your profile image</span>
       </label>
 
       <button
