@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, HardHat } from "lucide-react";
 import { listCharacters, getDisplayName } from "@/lib/ai/characters";
 
 export default function CharactersPage() {
@@ -11,8 +11,8 @@ export default function CharactersPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-black">Choose a character</h1>
         <p className="mt-2 text-slate-300">
-          Pick someone from Greek myth to start a conversation. Each character stays fully in
-          their own voice.
+          Select a Greek Great to entertain and enlighten you, tell them all your problems. Each
+          character stays fully in their own voice.
         </p>
       </div>
 
@@ -23,6 +23,14 @@ export default function CharactersPage() {
             href={`/app/chat?character=${encodeURIComponent(character.id)}`}
             className="group relative flex flex-col rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-xl backdrop-blur transition-all hover:border-brand-500/50 hover:bg-white/[0.1]"
           >
+            {!character.enabled && (
+              <span
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-yellow-400/20 text-yellow-300"
+                title="Under construction"
+              >
+                <HardHat size={18} />
+              </span>
+            )}
             <div className="mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-black/30">
               <Image
                 src={character.imageUrl}

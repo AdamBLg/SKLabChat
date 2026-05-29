@@ -155,7 +155,7 @@ export function ChatClient({ characterId, characterName, characterAvatar, initia
           </div>
           <div>
             <h1 className="text-xl font-black">{characterName}</h1>
-            <p className="text-sm text-slate-400">AI companion</p>
+            <p className="text-sm text-slate-400">Greek Heros brought back to be your friends</p>
           </div>
         </div>
         <button
