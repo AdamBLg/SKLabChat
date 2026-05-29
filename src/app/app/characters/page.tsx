@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, HardHat } from "lucide-react";
 import { listCharacters, getDisplayName } from "@/lib/ai/characters";
 
 export default function CharactersPage() {
@@ -21,9 +21,20 @@ export default function CharactersPage() {
           <Link
             key={character.id}
             href={`/app/chat?character=${encodeURIComponent(character.id)}`}
-            className="group flex flex-col rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-xl backdrop-blur transition-all hover:border-brand-500/50 hover:bg-white/[0.1]"
+            className={`group relative flex flex-col rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-xl backdrop-blur transition-all hover:bg-white/[0.1] ${
+              character.enabled ? "hover:border-brand-500/50" : "hover:border-yellow-400/40"
+            }`}
           >
-            <div className="mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-black/30">
+            {!character.enabled && (
+              <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-yellow-400/20 px-3 py-1 text-xs font-bold text-yellow-300">
+                <HardHat size={12} /> Under construction
+              </span>
+            )}
+            <div
+              className={`mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-black/30 ${
+                character.enabled ? "" : "opacity-60 grayscale"
+              }`}
+            >
               <Image
                 src={character.imageUrl}
                 alt={getDisplayName(character)}
@@ -39,9 +50,15 @@ export default function CharactersPage() {
             <p className="mt-3 flex-1 text-center text-sm leading-6 text-slate-400">
               {character.description}
             </p>
-            <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 font-bold transition-colors group-hover:bg-brand-500">
-              <MessageCircle size={18} /> Start chatting
-            </span>
+            {character.enabled ? (
+              <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 font-bold transition-colors group-hover:bg-brand-500">
+                <MessageCircle size={18} /> Start chatting
+              </span>
+            ) : (
+              <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-2xl bg-white/10 px-4 py-3 font-bold text-yellow-200 transition-colors group-hover:bg-white/15">
+                <HardHat size={18} /> Coming soon
+              </span>
+            )}
           </Link>
         ))}
       </div>

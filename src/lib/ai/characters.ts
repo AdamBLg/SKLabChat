@@ -16,10 +16,21 @@ export interface Character {
   title: string;
   description: string;
   imageUrl: string;
+  enabled: boolean;
   workspace: string;
   characterResourceName: string;
   config: CharacterConfig;
 }
+
+// Enable or disable each character. Disabled characters still appear on the
+// selection screen but route to the "Greek Construction Zone" placeholder.
+// Each entry can also be overridden per-character with an env var named
+// `{ID}_ENABLED` (e.g. ODYSSEUS_ENABLED=false).
+const CHARACTER_ENABLED: Record<string, boolean> = {
+  odysseus: false,
+  zeus: true,
+  oedipus: false,
+};
 
 interface CharacterProfile {
   id: string;
@@ -89,6 +100,13 @@ function envValue(key: string): string {
   return process.env[key]?.trim() || "";
 }
 
+function isEnabled(id: string): boolean {
+  const override = process.env[`${id.toUpperCase()}_ENABLED`]?.trim().toLowerCase();
+  if (override === "true") return true;
+  if (override === "false") return false;
+  return CHARACTER_ENABLED[id] ?? true;
+}
+
 function buildCharacter(profile: CharacterProfile, defaultWorkspace: string): Character {
   const prefix = profile.id.toUpperCase();
   const workspace = envValue(`${prefix}_INWORLD_WORKSPACE`) || defaultWorkspace;
@@ -101,6 +119,7 @@ function buildCharacter(profile: CharacterProfile, defaultWorkspace: string): Ch
     title: profile.title,
     description: profile.description,
     imageUrl: profile.imageUrl,
+    enabled: isEnabled(profile.id),
     workspace,
     characterResourceName,
     config: {

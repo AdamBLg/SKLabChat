@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCharacter, getDisplayName } from "@/lib/ai/characters";
+import { ConstructionZone } from "@/components/construction-zone";
 import { ChatClient } from "./chat-client";
 
 interface PageProps {
@@ -17,6 +18,10 @@ export default async function ChatPage({ searchParams }: PageProps) {
   const character = getCharacter(characterId);
   if (!character) {
     redirect("/app/characters");
+  }
+
+  if (!character.enabled) {
+    return <ConstructionZone characterName={getDisplayName(character)} />;
   }
 
   const supabase = await createClient();
