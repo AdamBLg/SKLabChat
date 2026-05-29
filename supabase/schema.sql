@@ -14,6 +14,7 @@ create table public.profiles (
   phone text,
   city text,
   country text,
+  favorite_character text,
   content_rating public.content_rating not null default 'pg13',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

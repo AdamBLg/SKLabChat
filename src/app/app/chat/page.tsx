@@ -11,7 +11,25 @@ interface PageProps {
 export default async function ChatPage({ searchParams }: PageProps) {
   const { character: characterId } = await searchParams;
 
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // No character chosen: jump straight to the user's favorite (if enabled),
+  // otherwise send them to the character selection screen.
   if (!characterId) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("favorite_character")
+      .eq("id", user!.id)
+      .maybeSingle();
+
+    const favorite = profile?.favorite_character
+      ? getCharacter(profile.favorite_character)
+      : null;
+
+    if (favorite?.enabled) {
+      redirect(`/app/chat?character=${encodeURIComponent(favorite.id)}`);
+    }
     redirect("/app/characters");
   }
 
@@ -23,9 +41,6 @@ export default async function ChatPage({ searchParams }: PageProps) {
   if (!character.enabled) {
     return <ConstructionZone characterName={getDisplayName(character)} />;
   }
-
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
 
   await supabase.from("profiles").upsert({
     id: user!.id,

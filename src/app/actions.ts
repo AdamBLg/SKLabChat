@@ -43,6 +43,32 @@ export async function saveSettings(_prevState: { success: boolean; message: stri
   return { success: true, message: "Settings saved successfully!" };
 }
 
+export async function setFavoriteCharacter(characterId: string) {
+  const supabase = await createClient();
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+  if (userError || !user) redirect("/login");
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("favorite_character")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  // Toggle: clicking the current favorite again clears it.
+  const nextFavorite = profile?.favorite_character === characterId ? null : characterId;
+
+  await supabase
+    .from("profiles")
+    .upsert({
+      id: user.id,
+      favorite_character: nextFavorite,
+      updated_at: new Date().toISOString(),
+    });
+
+  revalidatePath("/app/characters");
+}
+
 export async function sendMessage(formData: FormData) {
   const supabase = await createClient();
   const { data: { user }, error: userError } = await supabase.auth.getUser();

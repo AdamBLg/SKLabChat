@@ -13,6 +13,7 @@ export type Database = {
           phone: string | null;
           city: string | null;
           country: string | null;
+          favorite_character: string | null;
           content_rating: ContentRating;
           created_at: string;
           updated_at: string;
@@ -24,6 +25,7 @@ export type Database = {
           phone?: string | null;
           city?: string | null;
           country?: string | null;
+          favorite_character?: string | null;
           content_rating?: ContentRating;
           created_at?: string;
           updated_at?: string;
@@ -34,6 +36,7 @@ export type Database = {
           phone?: string | null;
           city?: string | null;
           country?: string | null;
+          favorite_character?: string | null;
           content_rating?: ContentRating;
           updated_at?: string;
         };

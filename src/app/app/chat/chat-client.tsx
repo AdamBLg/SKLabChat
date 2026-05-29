@@ -37,6 +37,12 @@ interface Props {
 
 const MAX_SENTENCES_PER_BUBBLE = 3;
 
+// A sentence that speaks directly to the user (second person) gets grouped into
+// its own bubble so it's easy to spot when the character is talking about you.
+function addressesUser(sentence: string): boolean {
+  return /\b(you|your|you're|youre|yours|yourself|you've|you'll|you'd)\b/i.test(sentence);
+}
+
 function splitReply(reply: string): string[] {
   const trimmed = reply.trim();
   if (!trimmed) return [];
@@ -58,16 +64,40 @@ function splitReply(reply: string): string[] {
   const result: string[] = [];
 
   for (const chunk of chunks) {
-    const sentences = chunk.match(/[^.!?]+[.!?]+(?=\s|$)|[^.!?]+$/g) ?? [chunk];
-    const trimmedSentences = sentences.map((s) => s.trim()).filter(Boolean);
+    const sentences = (chunk.match(/[^.!?]+[.!?]+(?=\s|$)|[^.!?]+$/g) ?? [chunk])
+      .map((s) => s.trim())
+      .filter(Boolean);
 
-    if (trimmedSentences.length <= MAX_SENTENCES_PER_BUBBLE) {
+    if (sentences.length <= 1) {
       result.push(chunk);
       continue;
     }
-    for (let i = 0; i < trimmedSentences.length; i += MAX_SENTENCES_PER_BUBBLE) {
-      result.push(trimmedSentences.slice(i, i + MAX_SENTENCES_PER_BUBBLE).join(" ").trim());
+
+    // Group consecutive sentences of the same "address mode" together, breaking
+    // into a new bubble when the mode flips (narration <-> talking to you) or
+    // when a bubble reaches the sentence cap.
+    let current: string[] = [];
+    let currentMode: boolean | null = null;
+
+    const flush = () => {
+      if (current.length) {
+        result.push(current.join(" ").trim());
+        current = [];
+      }
+    };
+
+    for (const sentence of sentences) {
+      const mode = addressesUser(sentence);
+      if (
+        currentMode !== null &&
+        (mode !== currentMode || current.length >= MAX_SENTENCES_PER_BUBBLE)
+      ) {
+        flush();
+      }
+      current.push(sentence);
+      currentMode = mode;
     }
+    flush();
   }
 
   return result.filter(Boolean);
